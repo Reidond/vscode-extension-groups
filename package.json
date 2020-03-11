@@ -1,0 +1,57 @@
+{
+	"name": "vscode-extension-groups",
+	"displayName": "Extension Groups",
+	"description": "Groups all your extensions to groups",
+	"version": "0.0.1",
+	"browserslist": [
+		"last 1 chrome versions"
+	],
+	"engines": {
+		"vscode": "^1.43.0"
+	},
+	"categories": [
+		"Other"
+	],
+	"activationEvents": [
+		"onCommand:extension.helloWorld"
+	],
+	"main": "./dist/extension.js",
+	"contributes": {
+		"commands": [
+			{
+				"command": "extension.helloWorld",
+				"title": "Hello World"
+			}
+		]
+	},
+	"scripts": {
+		"vscode:prepublish": "npm run compile",
+		"compile-webview": "parcel build ./src/webview/index.html --log-level 4 --out-dir ./dist/webview",
+		"compile": "parcel build ./src/extension.ts --log-level 4 --target node && npm run compile-webview",
+		"watch-webview": "parcel ./src/webview/index.html --out-dir ./dist/webview",
+		"watch": "parcel ./src/extension.ts --target node",
+		"lint": "eslint src --ext ts",
+		"pretest": "npm run compile && npm run compile-index && npm run compile-tests && npm run lint",
+		"compile-runtest": "parcel build ./src/test-suite/runTest.ts --target node",
+		"compile-index": "parcel build ./src/test-suite/index.ts --out-dir ./dist/suite --target node",
+		"compile-tests": "parcel build src/test-suite/tests/* --out-dir ./dist/suite --target node",
+		"test": "npm run compile-runtest && node ./dist/runTest.js"
+	},
+	"devDependencies": {
+		"@types/glob": "^7.1.1",
+		"@types/mocha": "^7.0.1",
+		"@types/node": "^12.11.7",
+		"@types/vscode": "^1.43.0",
+		"@typescript-eslint/eslint-plugin": "^2.18.0",
+		"@typescript-eslint/parser": "^2.18.0",
+		"eslint": "^6.8.0",
+		"glob": "^7.1.6",
+		"mocha": "^7.0.1",
+		"parcel-bundler": "^1.12.4",
+		"parcel-plugin-svelte": "^4.0.6",
+		"sass": "^1.26.2",
+		"svelte": "^3.19.2",
+		"typescript": "^3.7.5",
+		"vscode-test": "^1.3.0"
+	}
+}
